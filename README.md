@@ -1,1 +1,3 @@
 # NixieCalc
+Small calculator library designed for use with a nixie calculator<br><br>
+Under construction, untested...
