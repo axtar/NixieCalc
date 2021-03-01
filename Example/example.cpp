@@ -89,6 +89,31 @@ void loop()
   Serial.print("19: [1<+/->sqr]"); NUM(1); ONOP(OP::switchsign); ONOP(OP::squareroot); SHOW; ONOP(OP::allclear);
   Serial.print("20: [1+99999999999999=]"); NUM(1); ONOP(OP::addition); NUM(99999999999999); ONOP(OP::equals); SHOW; ONOP(OP::allclear);
 
+  // output:
+  /*
+  00: [1+3=] --> [1][1][3] --> <4>
+  01: [1+3==] --> <7>
+  02: [1-3=] --> <-2>
+  03: [2*4=] --> <8>
+  04: [3/4)] --> <0.75>
+  05: [3inv] --> <0.3333333333333>
+  06: [9sqr] --> <3>
+  07: [6+10%=] --> <6.6>
+  08: [4pow3=] --> <64>
+  09: [45sin] --> <0.7071067811865>
+  10: [30cos] --> <0.8660254037844>
+  11: [45tan] --> <1>
+  12: [20log] --> <1.301029995664>
+  13: [20ln] --> <2.995732273554>
+  14: [50<+/->] --> <-50>
+  15: [5.2+30sin-81sqr=] --> <-3.3>
+  16: [6/0=] --> <divide by zero>
+  17: [90tan] --> <invalid domain>
+  18: [0ln] --> <invalid domain>
+  19: [1<+/->sqr] --> <invalid domain>
+  20: [1+99999999999999=] --> <overflow>
+  */
+  
   while(true);
 
 }
