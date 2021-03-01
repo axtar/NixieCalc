@@ -54,7 +54,7 @@ void loop()
 {
   // make some calculations, as entered by user with the keyboard
 
-  // we can call getDisplayValue after every input / operation to refresh the nixie display
+  // we can call getDisplayValue after every input or operation to refresh the nixie display
   Serial.print("00: [1+3=] --> " );
   nixieCalc.onNumericInput(1);                Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onOperation(operation::addition); Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
