@@ -52,15 +52,16 @@ void setup()
 
 void loop() 
 {
-  // make some calculations, as entered by user with the keyboard
-
-  // we can call getDisplayValue after every input or  operation to refresh the nixie display
-  Serial.print("00: [1] [+] [3] [=] --> " );
-  nixieCalc.onNumericInput(1);                Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
+  // make some calculations...
+  // call onNumericInput() to process a numeric value, for example 5.25
+  // call onOperation to process an operation (see operation enum for supported operations)
+  // call getDisplayValue after every input or operation to refresh the nixie display
+  Serial.print("00: [1.5] [+] [3] [=] --> " );
+  nixieCalc.onNumericInput(1.5);              Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onOperation(operation::addition); Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onNumericInput(3);                Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onOperation(operation::equals);  
-  Serial.printf("           "); 
+  Serial.printf("     "); 
   printResult(nixieCalc.getDisplayValue(), nixieCalc.getOperationReturnCode());
 
   // now calling getDisplayValue only for the result and using macros
@@ -92,7 +93,7 @@ void loop()
 
   // output:
   /*
-  00: [1] [+] [3] [=] --> [1][1][3]            --> 4
+  00: [1.5] [+] [3] [=] --> [1.5][1.5][3]      --> 4.5
   01: [1] [+] [3] [=] [=]                      --> 7
   02: [1] [-] [3] [=]                          --> -2
   03: [2] [*] [4] [=]                          --> 8
@@ -114,9 +115,8 @@ void loop()
   19: [1] [+/-] [sqrr]                         --> invalid domain
   20: [1] [+] [99999999999999] [=]             --> overflow
   */
- 
-  while(true);
 
+  while(true);
 }
 
 void printResult(double value, operation_return_code retCode)
