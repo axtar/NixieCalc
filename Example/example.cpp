@@ -54,66 +54,67 @@ void loop()
 {
   // make some calculations, as entered by user with the keyboard
 
-  // we can call getDisplayValue after every input or operation to refresh the nixie display
-  Serial.print("00: [1+3=] --> " );
+  // we can call getDisplayValue after every input or  operation to refresh the nixie display
+  Serial.print("00: [1] [+] [3] [=] --> " );
   nixieCalc.onNumericInput(1);                Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onOperation(operation::addition); Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
   nixieCalc.onNumericInput(3);                Serial.printf("[%s]", formatNumber(nixieCalc.getDisplayValue()).c_str());
-  nixieCalc.onOperation(operation::equals);   
+  nixieCalc.onOperation(operation::equals);  
+  Serial.printf("           "); 
   printResult(nixieCalc.getDisplayValue(), nixieCalc.getOperationReturnCode());
 
   // now calling getDisplayValue only for the result and using macros
-  Serial.print("01: [1+3==]"); NUM(1); ONOP(OP::addition); NUM(3); ONOP(OP::equals); ONOP(OP::equals); SHOW; // repeating equals repeats last operation
-  Serial.print("02: [1-3=]"); NUM(1); ONOP(OP::subtraction); NUM(3); ONOP(OP::equals); SHOW;
-  Serial.print("03: [2*4=]"); NUM(2); ONOP(OP::multiplication); NUM(4); ONOP(OP::equals); SHOW;
-  Serial.print("04: [3/4)]"); NUM(3); ONOP(OP::division); NUM(4); ONOP(OP::equals); SHOW;
-  Serial.print("05: [3inv]"); NUM(3); ONOP(OP::inv); SHOW;
-  Serial.print("06: [9sqr]"); NUM(9); ONOP(OP::squareroot); SHOW;
-  Serial.print("07: [6+10%=]"); NUM(6); ONOP(OP::addition); NUM(10); ONOP(OP::percent); ONOP(OP::equals); SHOW;
-  Serial.print("08: [4pow3=]"); NUM(4); ONOP(OP::pow); NUM(3); ONOP(OP::equals); SHOW;
-  Serial.print("09: [45sin]"); NUM(45); ONOP(OP::sin); SHOW;
-  Serial.print("10: [30cos]"); NUM(30); ONOP(OP::cos); SHOW;
-  Serial.print("11: [45tan]"); NUM(45); ONOP(OP::tan); SHOW;
-  Serial.print("12: [20log]"); NUM(20); ONOP(OP::log); SHOW;
-  Serial.print("13: [20ln]"); NUM(20); ONOP(OP::ln); SHOW;
-  Serial.print("14: [50<+/->]"); NUM(50); ONOP(OP::switchsign); SHOW;
+  Serial.print("01: [1] [+] [3] [=] [=]                     "); NUM(1); ONOP(OP::addition); NUM(3); ONOP(OP::equals); ONOP(OP::equals); SHOW; // repeating equals repeats last operation
+  Serial.print("02: [1] [-] [3] [=]                         "); NUM(1); ONOP(OP::subtraction); NUM(3); ONOP(OP::equals); SHOW;
+  Serial.print("03: [2] [*] [4] [=]                         "); NUM(2); ONOP(OP::multiplication); NUM(4); ONOP(OP::equals); SHOW;
+  Serial.print("04: [3] [/] [4] [=]                         "); NUM(3); ONOP(OP::division); NUM(4); ONOP(OP::equals); SHOW;
+  Serial.print("05: [3] [inv]                               "); NUM(3); ONOP(OP::inv); SHOW;
+  Serial.print("06: [9] [sqrr]                              "); NUM(9); ONOP(OP::squareroot); SHOW;
+  Serial.print("07: [6] [+] [10] [%] [=]                    "); NUM(6); ONOP(OP::addition); NUM(10); ONOP(OP::percent); ONOP(OP::equals); SHOW;
+  Serial.print("08: [4] [pow] [3] [=]                       "); NUM(4); ONOP(OP::pow); NUM(3); ONOP(OP::equals); SHOW;
+  Serial.print("09: [45] [sin]                              "); NUM(45); ONOP(OP::sin); SHOW;
+  Serial.print("10: [30] [cos]                              "); NUM(30); ONOP(OP::cos); SHOW;
+  Serial.print("11: [45] [tan]                              "); NUM(45); ONOP(OP::tan); SHOW;
+  Serial.print("12: [20] [log]                              "); NUM(20); ONOP(OP::log); SHOW;
+  Serial.print("13: [20] [ln]                               "); NUM(20); ONOP(OP::ln); SHOW;
+  Serial.print("14: [50] [+/-]                              "); NUM(50); ONOP(OP::switchsign); SHOW;
   
   // little chain
-  Serial.print("15: [5.2+30sin-81sqr=]"); NUM(5.2); ONOP(OP::addition); NUM(30); ONOP(OP::sin); 
+  Serial.print("15: [5.2] [+] [30] [sin] [-] [81] [sqrr] [=]"); NUM(5.2); ONOP(OP::addition); NUM(30); ONOP(OP::sin); 
                 ONOP(OP::subtraction); NUM(81); ONOP(OP::squareroot); ONOP(OP::equals); SHOW;
 
   // produce some errors, after each error we have to press AC
-  Serial.print("16: [6/0=]"); NUM(6); ONOP(OP::division); NUM(0); ONOP(OP::equals); SHOW; ONOP(OP::allclear); 
-  Serial.print("17: [90tan]"); NUM(90); ONOP(OP::tan); SHOW; ONOP(OP::allclear);
-  Serial.print("18: [0ln]"); NUM(0); ONOP(OP::ln); SHOW; ONOP(OP::allclear);
-  Serial.print("19: [1<+/->sqr]"); NUM(1); ONOP(OP::switchsign); ONOP(OP::squareroot); SHOW; ONOP(OP::allclear);
-  Serial.print("20: [1+99999999999999=]"); NUM(1); ONOP(OP::addition); NUM(99999999999999); ONOP(OP::equals); SHOW; ONOP(OP::allclear);
+  Serial.print("16: [6] [/] [0] [=]                         "); NUM(6); ONOP(OP::division); NUM(0); ONOP(OP::equals); SHOW; ONOP(OP::allclear); 
+  Serial.print("17: [90] [tan]                              "); NUM(90); ONOP(OP::tan); SHOW; ONOP(OP::allclear);
+  Serial.print("18: [0] [ln]                                "); NUM(0); ONOP(OP::ln); SHOW; ONOP(OP::allclear);
+  Serial.print("19: [1] [+/-] [sqrr]                        "); NUM(1); ONOP(OP::switchsign); ONOP(OP::squareroot); SHOW; ONOP(OP::allclear);
+  Serial.print("20: [1] [+] [99999999999999] [=]            "); NUM(1); ONOP(OP::addition); NUM(99999999999999); ONOP(OP::equals); SHOW; ONOP(OP::allclear);
 
   // output:
   /*
-  00: [1+3=] --> [1][1][3] --> <4>
-  01: [1+3==] --> <7>
-  02: [1-3=] --> <-2>
-  03: [2*4=] --> <8>
-  04: [3/4)] --> <0.75>
-  05: [3inv] --> <0.3333333333333>
-  06: [9sqr] --> <3>
-  07: [6+10%=] --> <6.6>
-  08: [4pow3=] --> <64>
-  09: [45sin] --> <0.7071067811865>
-  10: [30cos] --> <0.8660254037844>
-  11: [45tan] --> <1>
-  12: [20log] --> <1.301029995664>
-  13: [20ln] --> <2.995732273554>
-  14: [50<+/->] --> <-50>
-  15: [5.2+30sin-81sqr=] --> <-3.3>
-  16: [6/0=] --> <divide by zero>
-  17: [90tan] --> <invalid domain>
-  18: [0ln] --> <invalid domain>
-  19: [1<+/->sqr] --> <invalid domain>
-  20: [1+99999999999999=] --> <overflow>
+  00: [1] [+] [3] [=] --> [1][1][3]            --> 4
+  01: [1] [+] [3] [=] [=]                      --> 7
+  02: [1] [-] [3] [=]                          --> -2
+  03: [2] [*] [4] [=]                          --> 8
+  04: [3] [/] [4] [=]                          --> 0.75
+  05: [3] [inv]                                --> 0.3333333333333
+  06: [9] [sqrr]                               --> 3
+  07: [6] [+] [10] [%] [=]                     --> 6.6
+  08: [4] [pow] [3] [=]                        --> 64
+  09: [45] [sin]                               --> 0.7071067811865
+  10: [30] [cos]                               --> 0.8660254037844
+  11: [45] [tan]                               --> 1
+  12: [20] [log]                               --> 1.301029995664
+  13: [20] [ln]                                --> 2.995732273554
+  14: [50] [+/-]                               --> -50
+  15: [5.2] [+] [30] [sin] [-] [81] [sqrr] [=] --> -3.3
+  16: [6] [/] [0] [=]                          --> divide by zero
+  17: [90] [tan]                               --> invalid domain
+  18: [0] [ln]                                 --> invalid domain
+  19: [1] [+/-] [sqrr]                         --> invalid domain
+  20: [1] [+] [99999999999999] [=]             --> overflow
   */
-  
+ 
   while(true);
 
 }
@@ -144,7 +145,7 @@ void printResult(double value, operation_return_code retCode)
       break;
   }
 
-  Serial.printf(" --> <%s>\n", s.c_str());
+  Serial.printf(" --> %s\n", s.c_str());
 }
 
 // funny function to format a double as follow:
