@@ -158,12 +158,21 @@ String formatNumber(double number)
 {
   char buffer[50];
   String result;
-
+  
+  // stupid thing, but it avoids displaying negative zeros 
+  if(number == 0)
+  {
+    number = 0;
+  }
   // format with maximum number of decimals
   sprintf(buffer, "%-.*f", DIGIT_COUNT, number);
   result = buffer;
   // get number of digits before the decimal point
   int index = result.indexOf('.');
+  if(number < 0)
+  {
+    index--;
+  }
   // get number of decimals to display
   int decimals = DIGIT_COUNT - index;
   // format again with the correct number of decimals
